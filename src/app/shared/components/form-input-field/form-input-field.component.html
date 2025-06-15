@@ -1,0 +1,22 @@
+<div class="mb-3">
+  <label [for]="label" class="form-label">{{ label }}</label>
+  <input
+    [type]="type"
+    [formControl]="control"
+    class="form-control"
+    [id]="label"
+    [ngClass]="{'is-invalid': showErrors}"
+  />
+
+  <div *ngIf="showErrors" class="invalid-feedback">
+    <div *ngIf="control.errors?.['required']">{{ label }} is required.</div>
+    <div *ngIf="control.errors?.['email']">Invalid email format.</div>
+    <div *ngIf="control.errors?.['minlength']">
+      {{ label }} must be at least {{ control.errors?.['minlength']?.requiredLength }} characters.
+    </div>
+    <div *ngIf="control.errors?.['maxlength']">
+      {{ label }} should not exceed {{ control.errors?.['malength']?.requiredLength }} characters.
+    </div>
+    <div *ngIf="control.errors?.['passwordMismatch']">Passwords do not match.</div>
+  </div>
+</div>
