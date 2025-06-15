@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit{
   errorMessage: string = '';
   successMessage: string = '';
 
+  // initialize the objects
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
       first_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
@@ -29,6 +30,7 @@ export class RegisterComponent implements OnInit{
 
   ngOnInit() {}
 
+  // password match validator
   private passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password');
     const confirmPassword = control.get('password_confirmation');
@@ -41,6 +43,7 @@ export class RegisterComponent implements OnInit{
     return this.registerForm.get(name) as FormControl;
   }
 
+  // submit the registration form
   onSubmit(): void {
     this.errorMessage = '';
     if (this.registerForm.invalid || this.isSubmitting) {
