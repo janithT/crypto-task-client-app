@@ -11,6 +11,7 @@ import { ConfirmDeleteDialogComponent } from 'src/app/shared/confirm-delete-dial
 import { ConfirmCompleteDialogComponent } from 'src/app/shared/confirm-complete-dialog/confirm-complete-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiResponse } from 'src/app/models/apiResponse.model';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-tasks',
@@ -30,7 +31,10 @@ export class TasksComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private taskService: TaskService, private dialog: MatDialog, private snackbar: MatSnackBar) {}
+  constructor(private taskService: TaskService, 
+    private dialog: MatDialog, 
+    private snackbar: MatSnackBar,
+    private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.loadTasks();
@@ -77,14 +81,7 @@ export class TasksComponent {
       error: (err) => {
         console.error(err?.error?.message || 'Something went wrong. Please try again.', err);
         this.loading = false;
-
-        this.snackbar.open(err?.error?.message || 'Something went wrong. Please try again.', 'Close', {
-          duration: 3000, 
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-          panelClass: ['error-snackbar'] 
-        });
-        
+        this.notificationService.show(err?.error?.message || 'Something went wrong. Please try again.', 'error');    
       }
     });
   }
@@ -103,33 +100,17 @@ export class TasksComponent {
             next: (response) => {
               if (response.status === 'success'){
                 this.loadTasks()
-
-                this.snackbar.open(response?.message || 'Task id is undefined, cannot complete task', 'Close', {
-                  duration: 3000, 
-                  horizontalPosition: 'right',
-                  verticalPosition: 'top',
-                  panelClass: ['error-snackbar'] 
-                });
+                this.notificationService.show(response?.message || 'Task completed', 'success');
               }
             },
             error: (err) => {
               // console.error('Failed to complete task:', err)
-              this.snackbar.open(err?.error?.message || 'Task id is undefined, cannot complete task', 'Close', {
-                duration: 3000, 
-                horizontalPosition: 'right',
-                verticalPosition: 'top',
-                panelClass: ['error-snackbar'] 
-              });
+              this.notificationService.show(err?.error?.message || 'Task id is undefined, cannot complete task', 'error');
             }
           });
         } else {
           // console.error('Task id is undefined, cannot complete task.');
-          this.snackbar.open('Task id is undefined, cannot complete task', 'Close', {
-            duration: 3000, 
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-            panelClass: ['error-snackbar'] 
-          });
+          this.notificationService.show('Task id is undefined, cannot complete task', 'error');
         }
       }
     });
@@ -150,24 +131,11 @@ export class TasksComponent {
             next: (response) => {
               if (response.status === 'success'){
                 this.loadTasks()
-
-                this.snackbar.open(response?.message || 'Deleted successfully', 'Close', {
-                  duration: 3000, 
-                  horizontalPosition: 'right',
-                  verticalPosition: 'top',
-                  panelClass: ['error-snackbar'] 
-                });
+                this.notificationService.show(response?.message || 'Deleted successfully', 'success');
               }
             },
             error: (err) => {
-
-              this.snackbar.open(err?.error?.message || 'Cannot delete task', 'Close', {
-                  duration: 3000, 
-                  horizontalPosition: 'right',
-                  verticalPosition: 'top',
-                  panelClass: ['error-snackbar'] 
-                });
-
+              this.notificationService.show(err?.error?.message || 'Cannot delete task', 'error');
             }
           });
         } else {

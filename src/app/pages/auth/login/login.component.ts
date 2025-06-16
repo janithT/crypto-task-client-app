@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { AppConfigService } from 'src/app/services/app-config.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +14,14 @@ export class LoginComponent implements OnInit{
 
   loginForm: FormGroup;
   loading:boolean = false;
-  errorMessage: string = '';
   successMessage: string = '';
 
   // initialize the objects
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, 
+    private authService: AuthService, 
+    private router: Router, 
+    public config: AppConfigService,
+    private notificationService: NotificationService ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.email , Validators.required, Validators.minLength(2)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -34,7 +39,6 @@ export class LoginComponent implements OnInit{
 
   // submit the login form
   onSubmit(): void {
-    this.errorMessage = '';
 
     this.loading = true;
 
@@ -44,8 +48,7 @@ export class LoginComponent implements OnInit{
         this.loginForm.reset();
         this.loading = false;
         if (response.status == "success")
-        this.successMessage = response?.message || 'Login success';
-
+        this.notificationService.show(response?.message || 'Login failed', 'success');
         this.router.navigate(['/dashboard']);
 
       },
@@ -56,7 +59,7 @@ export class LoginComponent implements OnInit{
           this.loading = false;
         } else {
           // Generic error
-          this.errorMessage = err?.error?.message || 'Login failed';
+          this.notificationService.show(err?.error?.message || 'Login failed', 'error');
           this.loading = false;
         }
       },

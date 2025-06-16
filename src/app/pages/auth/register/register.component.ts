@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, Valid
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
   selector: 'app-register',
@@ -14,10 +15,9 @@ export class RegisterComponent implements OnInit{
   registerForm: FormGroup;
   loading: boolean = false;
   errorMessage: string = '';
-  successMessage: string = '';
 
   // initialize the objects
-  constructor(private fb: FormBuilder, private authService: AuthService, 
+  constructor(private fb: FormBuilder, private authService: AuthService, public config: AppConfigService,
     private router: Router, 
     private notificationService: NotificationService) {
 

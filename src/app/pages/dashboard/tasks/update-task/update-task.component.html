@@ -3,7 +3,7 @@
   <!-- Title & Description Row -->
   <div class="form-row" style="display: flex; gap: 16px; width: 100%;">
     
-    <!-- Title -->
+    <!-- Title Field-->
      <div style="flex: 1;">
         <app-mat-input-field
             [control]="getControl('title')"
@@ -15,7 +15,7 @@
      </div>
     
 
-    <!-- Description -->
+    <!-- Description Field - change this later -->
      <div style="flex: 2;">
         <app-mat-input-field
             [control]="getControl('description')"
@@ -29,6 +29,7 @@
   </div>
 
   <mat-spinner *ngIf="loading" class="mx-auto my-4 d-block"></mat-spinner>
+
   <!-- Submit Button -->
   <div style="display: flex; justify-content: flex-end; margin-top: 16px;">
     <app-mat-button
