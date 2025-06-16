@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit{
 
   loginForm: FormGroup;
-  isSubmitting = false;
+  loading:boolean = false;
   errorMessage: string = '';
   successMessage: string = '';
 
@@ -24,48 +24,53 @@ export class LoginComponent implements OnInit{
     })
   }
 
-
   ngOnInit(): void {
     
   }
 
-  getControl(name: string): FormControl {
-    return this.loginForm.get(name) as FormControl;
+  getControl(controlName: string): FormControl {
+      return this.loginForm.get(controlName) as FormControl;   
   }
 
   // submit the login form
   onSubmit(): void {
     this.errorMessage = '';
-    if (this.loginForm.invalid || this.isSubmitting) {
-      this.loginForm.markAllAsTouched();
-      return;
-    }
 
-    this.isSubmitting = true;
+    this.loading = true;
 
     this.authService.login(this.loginForm.value).subscribe({
       next: (response) => {
         console.log('Loggin successful:', response);
         this.loginForm.reset();
-        this.isSubmitting = false;
+        this.loading = false;
         if (response.status == "success")
         this.successMessage = response?.message || 'Login success';
 
         this.router.navigate(['/dashboard']);
 
-        // this.router.navigate(['/auth/login']);
       },
       error: (err) => {
         if (err?.error?.errors) {
           // Laravel validation errors
-          const errors = err.error.errors;
-          const messages = Object.values(errors).flat();
-          this.errorMessage = messages.join('\n'); 
+          this.handleValidationErrors(err.error.errors);
+          this.loading = false;
         } else {
           // Generic error
           this.errorMessage = err?.error?.message || 'Login failed';
+          this.loading = false;
         }
       },
     });
   }
+
+  // Laravel validation errors
+  handleValidationErrors(errors: { [key: string]: string[] }) {
+    Object.keys(errors).forEach((field) => {
+      const control = this.loginForm.get(field);
+      if (control) {
+        control.setErrors({ server: errors[field][0] }); 
+      }
+    });
+  }
+
 }

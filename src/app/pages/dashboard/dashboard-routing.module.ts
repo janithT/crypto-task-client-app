@@ -1,16 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { DashboardLayoutComponent } from 'src/app/layouts/dashboard-layout/dashboard-layout/dashboard-layout.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { AddTaskComponent } from './tasks/add-task/add-task.component';
+import { UpdateTaskComponent } from './tasks/update-task/update-task.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'tasks', loadComponent: () => import('./tasks/tasks.component').then(m => m.TasksComponent) },
   {
-    path: 'dashboard',
-    component: DashboardLayoutComponent,
+    path: '',
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'tasks', component: TasksComponent },
+      { path: 'tasks/create', component: AddTaskComponent },
+      { path: 'task/edit/:id',  component: UpdateTaskComponent},
+      // {
+      //   path: 'tasks/create',
+      //   loadComponent: () =>
+      //     import('./tasks/add-task/add-task.component').then(m => m.AddTaskComponent)
+      // },
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]
   }

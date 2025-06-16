@@ -9,11 +9,12 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const authToken = localStorage.getItem('token');
@@ -27,11 +28,10 @@ export class AuthInterceptor implements HttpInterceptor {
     });
 
     return next.handle(modifiedReq).pipe(
-      catchError((error: HttpErrorResponse) => {debugger
+      catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           // Token expired or unauthorized
-          localStorage.removeItem('token');
-          this.router.navigate(['/auth/login']);
+          this.authService.logout();
         }
 
         return throwError(() => error);

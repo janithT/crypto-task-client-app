@@ -1,0 +1,21 @@
+<button
+  mat-raised-button
+  [color]="color"
+  [type]="type"
+  [disabled]="disabled || loading"
+  class="w-100"
+>
+  <ng-container *ngIf="!loading; else loadingBlock">
+    {{ text }}
+  </ng-container>
+
+  <ng-template #loadingBlock>
+    <mat-progress-spinner
+      diameter="20"
+      mode="indeterminate"
+      color="accent"
+      style="margin-right: 8px;"
+    ></mat-progress-spinner>
+    <span>Please wait...</span>
+  </ng-template>
+</button>

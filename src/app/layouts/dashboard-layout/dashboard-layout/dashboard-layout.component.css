@@ -5,3 +5,11 @@
 .main-content {
   margin-left: 250px;
 }
+
+.dashboard-container {
+  height: 100vh;
+}
+
+.dashboard-content {
+  padding: 16px;
+}
