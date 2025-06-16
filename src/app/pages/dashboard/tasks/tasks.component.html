@@ -58,7 +58,7 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let task">
-      <button mat-icon-button color="primary" [routerLink]="['/dashboard/task/edit', task.id]">
+      <button mat-icon-button color="primary" aria-label="Edit Task" [routerLink]="['/dashboard/task/edit', task.id]">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-icon-button color="info" (click)="openCompleteDialog(task)">
