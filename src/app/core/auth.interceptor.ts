@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
@@ -13,18 +13,20 @@ import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-
   constructor(private router: Router, private authService: AuthService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
     const authToken = localStorage.getItem('token');
 
     const modifiedReq = req.clone({
       headers: new HttpHeaders({
         ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
-        'X-Requested-With': 'XMLHttpRequest'
+        'X-Requested-With': 'XMLHttpRequest',
       }),
-      withCredentials: true
+      withCredentials: true,
     });
 
     return next.handle(modifiedReq).pipe(
