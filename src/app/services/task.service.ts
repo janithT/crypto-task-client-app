@@ -20,7 +20,7 @@ export class TaskService {
   }
 
   // create new task
-  createTask(data: any): Observable<ApiResponse<Task>> {
+  createTask(data: Task): Observable<ApiResponse<Task>> {
     return this.http.post<any>(`${this.apiUrl}/tasks`, data);
   }
 
@@ -39,7 +39,6 @@ export class TaskService {
   }
 
   // complete task
-
   completeTask(id: number): Observable<any> {
     return this.http.patch(`${this.apiUrl}/tasks/${id}/complete`, null);
   }
