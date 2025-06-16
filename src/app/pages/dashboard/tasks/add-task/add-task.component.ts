@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/services/notification.service';
 import { TaskService } from 'src/app/services/task.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-task',
@@ -17,10 +17,15 @@ export class AddTaskComponent {
   errorMessage = '';
   selectedStatus = 'all'
 
-  constructor(private fb: FormBuilder,private taskService: TaskService, private router: Router, private snackbar: MatSnackBar) {
+  constructor(
+    private fb: FormBuilder,
+    private taskService: TaskService, 
+    private router: Router, 
+    private notificationService: NotificationService
+  ) {
     this.taskForm = this.fb.group({
           title: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
-          description: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]]
+          description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]]
         });
   }
 
@@ -30,48 +35,35 @@ export class AddTaskComponent {
    
     }
 
-  onStatusChanged(status: string): void {
-    this.taskForm.get('status')?.setValue(status);
-    this.taskForm.get('status')?.markAsTouched();
-  }
-
+  // create task 
   createTask(): void {
     this.loading = true;
 
     this.taskService.createTask(this.taskForm.value).subscribe({
       
-      next: (response) => {
+      next: (response: any) => {
         console.log('create task successful:', response);
         this.taskForm.reset();
         this.loading = false;
-        if (response.status == "success")
+        if (response.status == "success") {
+          this.notificationService.show(response?.message, 'success');
+          this.router.navigate(['/dashboard/tasks']);
+        } else {
+          this.notificationService.show('Task created failed.', 'error');
+        }
 
-        this.snackbar.open(response?.message || 'create task successful.', 'Close', {
-          duration: 3000, 
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-          panelClass: ['success-snackbar'] 
-        });
-
-        this.router.navigate(['/dashboard/tasks']);
       },
       error: (err) => {
         if (err?.error?.errors) {
           // Laravel validation errors
-          this.handleValidationErrors(err.error.errors);
-
+          this.handleValidationErrors(err?.error?.errors);
           this.loading = false;
+          this.notificationService.show(err?.error?.errors || 'Create task failed.', 'success');
         } else {
           // Generic error
           this.errorMessage = err?.error?.message || 'Create task failed';
           this.loading = false;
-
-          this.snackbar.open(err?.error?.message || 'Create task failed.', 'Close', {
-            duration: 3000, 
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-            panelClass: ['error-snackbar'] 
-          });
+          this.notificationService.show(err?.error?.message || 'Create task failed.', 'error');
         }
       },
     });

@@ -1,52 +1,15 @@
-<!-- bootstrap ui
-<div class="login-container">
-  <div class="login-form">
-    <h2>Task App - Sign in</h2>
-
-    <div *ngIf="errorMessage" class="alert alert-danger mt-2">
-         {{ errorMessage }}
-    </div>
-    <div *ngIf="successMessage" class="alert alert-success mt-2">
-         {{ successMessage }}
-    </div>
-
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
-
-        <app-form-input-field
-            [control]="getControl('email')"
-            label="Email"
-            [type]="'email'"
-        ></app-form-input-field>
-
-        <app-form-input-field
-            [control]="getControl('password')"
-            label="Password"
-            [type]="'password'"
-        ></app-form-input-field>
-
-        <div class="button-container">
-            <a routerLink="/auth/register" class="btn btn-link">Register here</a>
-
-            <app-button type="submit" [disabled]="isSubmitting" class="btn btn-primary w-full">
-                {{ isSubmitting ? 'loggin...' : 'Login' }}
-            </app-button>
-        </div>
-        
-    </form>
-  </div>
-</div> -->
-
 <!-- Material ui -->
 <div class="auth-container">
   <mat-card class="auth-card">
-    <mat-card-title class="mat-card-title">Task app - Login</mat-card-title>
+    <mat-card-title class="mat-card-title"> {{ config.appName }} </mat-card-title>
 
-    <div *ngIf="errorMessage" class="alert alert-danger mt-2">
-         {{ errorMessage }}
-    </div>
+    <mat-card-content class="text-center">
+      <span class="text-lg font-medium">Login</span>
+    </mat-card-content>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="p-10">
 
+      <!-- Email Field -->
       <app-mat-input-field
         [control]="getControl('email')"
         label="Email"
@@ -54,6 +17,7 @@
         [placeholder]="'email'"
       ></app-mat-input-field>
 
+      <!-- Password Field -->
       <app-mat-input-field
         [control]="getControl('password')"
         label="Password"
@@ -61,7 +25,7 @@
         [placeholder]="'password'"
       ></app-mat-input-field>
 
-
+      <!-- Submit Button -->
       <app-mat-button
         text="Login"
         color="primary"
@@ -71,6 +35,11 @@
       ></app-mat-button>
 
     </form>
+
+    <div>
+      <a color="info" routerLink="/auth/register">Don't have an account?</a>
+    </div>
+   
   </mat-card>
 </div>
 

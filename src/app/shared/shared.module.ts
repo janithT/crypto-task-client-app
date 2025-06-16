@@ -13,20 +13,21 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputFieldComponent } from './components/mat-input-field/mat-input-field.component';
 import { MatButtonComponent } from './components/mat-button/mat-button.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { StatusFilterComponent } from './components/status-filter/status-filter.component';
 import { MatSelectModule } from '@angular/material/select';
-import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog/confirm-delete-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+
+import { ConfirmDeleteDialogComponent } from './confirm-delete-dialog/confirm-delete-dialog.component';
 import { ConfirmCompleteDialogComponent } from './confirm-complete-dialog/confirm-complete-dialog.component';
+import { StatusFilterComponent } from './components/status-filter/status-filter.component';
 
 
 @NgModule({
   declarations: [
-    // ButtonComponent,
-    // FormInputFieldComponent,
     MatInputFieldComponent,
     MatButtonComponent,
+
     StatusFilterComponent,
+
     ConfirmDeleteDialogComponent,
     ConfirmCompleteDialogComponent
   ],
@@ -44,8 +45,6 @@ import { ConfirmCompleteDialogComponent } from './confirm-complete-dialog/confir
     MatDialogModule
   ],
   exports: [
-    // ButtonComponent,
-    // FormInputFieldComponent,
     
     CommonModule,
     FormsModule,
@@ -59,10 +58,13 @@ import { ConfirmCompleteDialogComponent } from './confirm-complete-dialog/confir
     MatInputFieldComponent,
     MatButtonComponent,
     MatSelectModule,
-    StatusFilterComponent,
     MatProgressSpinnerModule,
+    MatDialogModule,
+
+    StatusFilterComponent,
     ConfirmDeleteDialogComponent,
-    MatDialogModule
+    ConfirmCompleteDialogComponent
+    
   ]
 })
 export class SharedModule { }

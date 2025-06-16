@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { NotificationService } from 'src/app/services/notification.service';
+import { AppConfigService } from 'src/app/services/app-config.service';
 
 @Component({
   selector: 'app-register',
@@ -13,10 +15,12 @@ export class RegisterComponent implements OnInit{
   registerForm: FormGroup;
   loading: boolean = false;
   errorMessage: string = '';
-  successMessage: string = '';
 
   // initialize the objects
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, public config: AppConfigService,
+    private router: Router, 
+    private notificationService: NotificationService) {
+
     this.registerForm = this.fb.group({
       first_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
       last_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
@@ -61,7 +65,7 @@ export class RegisterComponent implements OnInit{
         this.registerForm.reset();
         this.loading = false;
         if (response.status == "success")
-        this.successMessage = response?.message || 'Registration success';
+        this.notificationService.show(response?.message || 'Registration success' , 'success');
 
         this.router.navigate(['/auth/login']);
       },
@@ -69,11 +73,10 @@ export class RegisterComponent implements OnInit{
         if (err?.error?.errors) {
           // Laravel validation errors
           this.handleValidationErrors(err.error.errors);
-
           this.loading = false;
         } else {
           // Generic error
-          this.errorMessage = err?.error?.message || 'Registration failed';
+          this.notificationService.show(err?.error?.message || 'Registration failed. Try again' , 'error');
           this.loading = false;
         }
       },
