@@ -1,42 +1,43 @@
-<form [formGroup]="taskForm" (ngSubmit)="createTask()" class="flex items-center gap-4 flex-wrap mb-4">
+<form
+  [formGroup]="taskForm"
+  (ngSubmit)="createTask()"
+  class="flex items-center gap-4 flex-wrap mb-4"
+>
+  <h3>Create Task</h3>
 
-    <div class="form-row" style="display: flex; gap: 16px; width: 100%;">
-        <!-- Title Field-->
-         <div style="flex: 1;">
-            <app-mat-input-field
-                [control]="getControl('title')"
-                label="Title"
-                [type]="'text'"
-                [placeholder]="'Enter task title'"
-                class="w-60"
-            ></app-mat-input-field>
-         </div>
-        
-
-        <!-- Description Field - use textarea later --> 
-         <div style="flex: 2;">
-            <app-mat-input-field
-                [control]="getControl('description')"
-                label="Description"
-                [type]="'text'"
-                [placeholder]="'Enter task description'"
-                class="w-80"
-            ></app-mat-input-field>
-         </div>
-        
-    </div>
-  
-
-    <!-- Submit Button -->
-    <div style="display: flex; justify-content: flex-end; margin-top: 16px;">
-      <app-mat-button
-        [text]="creating ? 'Please wait...' : 'Create Task'"
-        [loading]="creating"
-        [disabled]="taskForm.invalid || creating"
-        [type]="'submit'"
-        [color]="'info'"
-        class="w-40"
-      ></app-mat-button>
+  <div class="form-row" style="display: flex; gap: 16px; width: 100%">
+    <!-- Title Field-->
+    <div style="flex: 1">
+      <app-mat-input-field
+        [control]="getControl('title')"
+        label="Title"
+        [type]="'text'"
+        [placeholder]="'Enter task title'"
+        class="w-60"
+      ></app-mat-input-field>
     </div>
 
+    <!-- Description Field - use textarea later -->
+    <div style="flex: 2">
+      <app-mat-input-field
+        [control]="getControl('description')"
+        label="Description"
+        [type]="'text'"
+        [placeholder]="'Enter task description'"
+        class="w-80"
+      ></app-mat-input-field>
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <div style="display: flex; justify-content: flex-end; margin-top: 16px">
+    <app-mat-button
+      [text]="creating ? 'Please wait...' : 'Create Task'"
+      [loading]="creating"
+      [disabled]="taskForm.invalid || creating"
+      [type]="'submit'"
+      [color]="'info'"
+      class="w-40"
+    ></app-mat-button>
+  </div>
 </form>

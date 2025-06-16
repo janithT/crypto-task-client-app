@@ -8,7 +8,6 @@ import { ApiResponse } from '../models/apiResponse.model';
 @Injectable({
   providedIn: 'root',
 })
-
 export class TaskService {
   private apiUrl = environment.apiUrl;
 
@@ -16,7 +15,7 @@ export class TaskService {
 
   // get all tasks
   getTasks(params: any): Observable<ApiResponse<Task>> {
-    return this.http.get<any>(`${this.apiUrl}/tasks`, {params});
+    return this.http.get<any>(`${this.apiUrl}/tasks`, { params });
   }
 
   // create new task
@@ -42,5 +41,4 @@ export class TaskService {
   completeTask(id: number): Observable<any> {
     return this.http.patch(`${this.apiUrl}/tasks/${id}/complete`, null);
   }
-
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
-  providedIn: 'root' // makes it globally available
+  providedIn: 'root', // makes it globally available
 })
 export class NotificationService {
   constructor(private snackbar: MatSnackBar) {}
@@ -12,7 +12,7 @@ export class NotificationService {
       duration: 3000,
       horizontalPosition: 'right',
       verticalPosition: 'top',
-      panelClass: [`${type}-snackbar`]
+      panelClass: [`${type}-snackbar`],
     });
   }
 }
