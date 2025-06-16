@@ -1,0 +1,25 @@
+<mat-form-field appearance="outline" class="full-width">
+  <mat-label>{{ label }}</mat-label>
+  <input matInput
+         [type]="type"
+         [formControl]="control"
+         [placeholder]="placeholder" />
+  <mat-error *ngIf="control?.touched && control?.errors">
+    <span class="mat-error-danger" *ngIf="control.errors?.['required']">{{ label }} is required</span>
+    <span class="mat-error-danger" *ngIf="control.errors?.['email']">Invalid email format</span>
+    <span class="mat-error-danger" *ngIf="control.errors?.['minlength']">
+      Minimum {{ control.errors?.['minlength'].requiredLength }} characters required
+    </span>
+    <span class="mat-error-danger" *ngIf="control.errors?.['maxlength']">
+      maximum {{ control.errors?.['maxlength'].requiredLength }} characters required
+    </span>
+    <span class="mat-error-danger" *ngIf="control.errors?.['passwordMismatch']">Passwords do not match</span>
+
+    <div *ngFor="let msg of control.errors?.['server']">
+      {{ msg }}
+    </div>
+
+  </mat-error>
+
+  
+</mat-form-field>

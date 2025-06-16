@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class RegisterComponent implements OnInit{
 
   registerForm: FormGroup;
-  isSubmitting = false;
+  loading: boolean = false;
   errorMessage: string = '';
   successMessage: string = '';
 
@@ -39,25 +39,27 @@ export class RegisterComponent implements OnInit{
       { passwordMismatch: true } : null;
   }
 
-  getControl(name: string): FormControl {
-    return this.registerForm.get(name) as FormControl;
+  // get controller names
+  getControl(controlName: string): FormControl {
+    const control = this.registerForm.get(controlName) as FormControl;
+
+    if (controlName === 'password_confirmation' && this.registerForm.errors?.['passwordMismatch']) {
+      control.setErrors({ ...control.errors, passwordMismatch: true });
+    }
+
+    return control;
   }
 
   // submit the registration form
   onSubmit(): void {
     this.errorMessage = '';
-    if (this.registerForm.invalid || this.isSubmitting) {
-      this.registerForm.markAllAsTouched();
-      return;
-    }
-
-    this.isSubmitting = true;
+    this.loading = true;
 
     this.authService.register(this.registerForm.value).subscribe({
       next: (response) => {
         console.log('Registration successful:', response);
         this.registerForm.reset();
-        this.isSubmitting = false;
+        this.loading = false;
         if (response.status == "success")
         this.successMessage = response?.message || 'Registration success';
 
@@ -66,14 +68,28 @@ export class RegisterComponent implements OnInit{
       error: (err) => {
         if (err?.error?.errors) {
           // Laravel validation errors
-          const errors = err.error.errors;
-          const messages = Object.values(errors).flat();
-          this.errorMessage = messages.join('\n'); 
+          this.handleValidationErrors(err.error.errors);
+
+          this.loading = false;
         } else {
           // Generic error
           this.errorMessage = err?.error?.message || 'Registration failed';
+          this.loading = false;
         }
       },
+    });
+  }
+
+  // Laravel validation errors
+  handleValidationErrors(errors: { [key: string]: string[] }) {
+    Object.keys(errors).forEach((field) => {
+      const control = this.registerForm.get(field);
+      if (control) {
+        const errorMessages = errors[field];
+        control.setErrors({
+          server: errorMessages,
+        });
+      }
     });
   }
 }

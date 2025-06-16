@@ -1,1 +1,61 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* for general use */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #ffffff;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 15px;
+}
+
+.mat-card-title {
+  text-align: center;
+  padding: 1rem;
+  font-weight: 500;
+  font-size: x-large;
+}
+
+.mat-error-danger{
+    color: red;
+}
+
+.mat-mdc-raised-button:not(:disabled) {
+    background-color: #04ffd1e1 !important;
+}
+
+.mat-mdc-form-field {
+  display: block !important;
+  /* padding: 0.5rem; */
+}
+
+.warning-snackbar {
+  background-color: #ff9800 !important;  
+  color: #fff !important;
+}
+
+.success-snackbar {
+  background-color: #4caf50 !important;  
+  color: #fff !important;
+}
+
+.error-snackbar {
+  background-color: #f44336 !important; 
+  color: #fff !important;
+}
+
+.info-snackbar {
+  background-color: #2196f3 !important;  
+  color: #fff !important;
+}

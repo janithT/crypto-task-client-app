@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Confirm complete</h2>
+
+<mat-dialog-content>
+  Are you sure you want to complete the task <strong>{{ data.title }}</strong>?
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button color="primary" (click)="confirmStatus()">Complete</button>
+</mat-dialog-actions>

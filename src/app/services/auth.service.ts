@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/envs/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { environment } from 'src/envs/environment';
 export class AuthService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   // Register request
   register(data: any): Observable<any> {
@@ -27,5 +28,10 @@ export class AuthService {
             }
         })
     );
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/auth/login']);
   }
 }
