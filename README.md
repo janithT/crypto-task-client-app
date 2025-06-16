@@ -1,27 +1,38 @@
-# MyAngular15App
+# 📝 Task M - Client App
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
 
-## Development server
+## 📝 Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- If you dont have Angular or NodeJs setup please install them first.
+    - NodeJs - Download from here:  https://nodejs.org/en/download
+    - Angular install - `npm install -g @angular/cli`
 
-## Code scaffolding
+- Run `npm install` for install all the dependencies. 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Run `ng serve` for a dev server. 
 
-## Build
+- Navigate to `http://localhost:4200/`. The application will automatically reload with the source files.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 🚀 Features
 
-## Running unit tests
+- ✅ **Task CRUD** (Create, Read, Update, Delete)
+- ✅ **Reactive Forms** with validation
+- ✅ **Angular Material UI** for clean and responsive design
+- ✅ **Routing with Lazy Loading**
+- ✅ **Snackbar Notifications**
+- ✅ **Form Validation with Error Messages**
+- ✅ **Reusable Services** (TaskService, NotificationService)
+- ✅ **Loading Indicators**
+- ✅ **FormBuilder for Reactive Forms**
+- ✅ **Pagination & Filtering (optional)**
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 📦 Tech Stack
 
-## Running end-to-end tests
+- [Angular] - Angular cli.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- [RxJs] - Reactive programming.
 
-## Further help
+- [TypeScript] - Typed javascript.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- [Angular Material] - for UI components.
