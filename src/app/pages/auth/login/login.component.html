@@ -1,14 +1,15 @@
 <!-- Material ui -->
 <div class="auth-container">
   <mat-card class="auth-card">
-    <mat-card-title class="mat-card-title"> {{ config.appName }} </mat-card-title>
+    <mat-card-title class="mat-card-title">
+      {{ config.appName }}
+    </mat-card-title>
 
     <mat-card-content class="text-center">
       <span class="text-lg font-medium">Login</span>
     </mat-card-content>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="p-10">
-
       <!-- Email Field -->
       <app-mat-input-field
         [control]="getControl('email')"
@@ -33,13 +34,10 @@
         [loading]="loading"
         class="full-width"
       ></app-mat-button>
-
     </form>
 
     <div>
       <a color="info" routerLink="/auth/register">Don't have an account?</a>
     </div>
-   
   </mat-card>
 </div>
-

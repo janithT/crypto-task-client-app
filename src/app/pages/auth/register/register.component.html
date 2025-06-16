@@ -1,13 +1,14 @@
 <div class="auth-container">
   <mat-card class="auth-card">
-    <mat-card-title class="mat-card-title">{{ config.appName || 'Task Management App' }}</mat-card-title>
+    <mat-card-title class="mat-card-title">{{
+      config.appName || "Task Management App"
+    }}</mat-card-title>
 
     <mat-card-content class="text-center">
       <span class="text-lg font-medium">Register</span>
     </mat-card-content>
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="p-10">
-
       <!-- First Name Field -->
       <app-mat-input-field
         [control]="getControl('first_name')"
@@ -56,7 +57,6 @@
         [loading]="loading"
         class="full-width"
       ></app-mat-button>
-
     </form>
 
     <div>

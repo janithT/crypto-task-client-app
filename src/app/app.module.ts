@@ -12,11 +12,8 @@ import { AuthInterceptor } from './core/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,7 +21,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     SharedModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   providers: [
     {
@@ -33,6 +30,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
       multi: true,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

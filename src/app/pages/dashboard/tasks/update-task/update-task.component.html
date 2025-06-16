@@ -1,37 +1,38 @@
-<form [formGroup]="taskForm" (ngSubmit)="updateForm()" class="flex flex-col gap-6 w-full max-w-4xl mx-auto">
+<form
+  [formGroup]="taskForm"
+  (ngSubmit)="updateForm()"
+  class="flex flex-col gap-6 w-full max-w-4xl mx-auto"
+>
+  <h3>Update Task</h3>
 
-  <!-- Title & Description Row -->
-  <div class="form-row" style="display: flex; gap: 16px; width: 100%;">
-    
+  <div class="form-row" style="display: flex; gap: 16px; width: 100%">
     <!-- Title Field-->
-     <div style="flex: 1;">
-        <app-mat-input-field
-            [control]="getControl('title')"
-            label="Title"
-            [type]="'text'"
-            [placeholder]="'Enter task title'"
-            class="w-1/2"
-        ></app-mat-input-field>
-     </div>
-    
+    <div style="flex: 1">
+      <app-mat-input-field
+        [control]="getControl('title')"
+        label="Title"
+        [type]="'text'"
+        [placeholder]="'Enter task title'"
+        class="w-1/2"
+      ></app-mat-input-field>
+    </div>
 
     <!-- Description Field - change this later -->
-     <div style="flex: 2;">
-        <app-mat-input-field
-            [control]="getControl('description')"
-            label="Description"
-            [type]="'text'"
-            [placeholder]="'Enter task description'"
-            class="w-1/2"
-        ></app-mat-input-field>
-     </div>
-        
+    <div style="flex: 2">
+      <app-mat-input-field
+        [control]="getControl('description')"
+        label="Description"
+        [type]="'text'"
+        [placeholder]="'Enter task description'"
+        class="w-1/2"
+      ></app-mat-input-field>
+    </div>
   </div>
 
   <mat-spinner *ngIf="loading" class="mx-auto my-4 d-block"></mat-spinner>
 
   <!-- Submit Button -->
-  <div style="display: flex; justify-content: flex-end; margin-top: 16px;">
+  <div style="display: flex; justify-content: flex-end; margin-top: 16px">
     <app-mat-button
       [text]="updating ? 'Please wait...' : 'Update Task'"
       [loading]="updating"
@@ -41,5 +42,4 @@
       class="w-40"
     ></app-mat-button>
   </div>
-
 </form>
