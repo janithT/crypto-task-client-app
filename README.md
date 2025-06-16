@@ -8,7 +8,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     - NodeJs - Download from here:  https://nodejs.org/en/download
     - Angular install - `npm install -g @angular/cli`
 
+- Clone the repository or download.
+
+- Navigate to your project root folder.
+
 - Run `npm install` for install all the dependencies. 
+
+- Run `npm update` for update all the dependencies (if needed). 
 
 - Run `ng serve` for a dev server. 
 
