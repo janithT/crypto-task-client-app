@@ -4,27 +4,38 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpHeaders
+  HttpHeaders,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
-
 export class AuthInterceptor implements HttpInterceptor {
 
+  constructor(private router: Router) {}
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // Get JWT from localStorage
     const authToken = localStorage.getItem('token');
 
-    // Clone request and add Authorization and CSRF headers
     const modifiedReq = req.clone({
       headers: new HttpHeaders({
         ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
-        'X-Requested-With': 'XMLHttpRequest' 
+        'X-Requested-With': 'XMLHttpRequest'
       }),
-      withCredentials: true 
+      withCredentials: true
     });
 
-    return next.handle(modifiedReq);
+    return next.handle(modifiedReq).pipe(
+      catchError((error: HttpErrorResponse) => {debugger
+        if (error.status === 401) {
+          // Token expired or unauthorized
+          localStorage.removeItem('token');
+          this.router.navigate(['/auth/login']);
+        }
+
+        return throwError(() => error);
+      })
+    );
   }
 }
