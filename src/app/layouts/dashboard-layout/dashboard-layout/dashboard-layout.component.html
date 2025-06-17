@@ -1,16 +1,30 @@
-<div class="dashboard-container d-flex">
+<mat-sidenav-container class="sidenav-container">
   <!-- Sidebar -->
-  <app-sidebar></app-sidebar>
+  <mat-sidenav #drawer mode="side" class="sidenav" [opened]="true">
+    <mat-toolbar color="primary">{{ config.appName }}</mat-toolbar>
+    <mat-nav-list>
+      <app-sidebar></app-sidebar>
+    </mat-nav-list>
+  </mat-sidenav>
 
   <!-- Main Content -->
-  <div class="main-content flex-grow-1">
+  <mat-sidenav-content>
     <!-- Header -->
-     <app-header></app-header>
-    
+    <!-- <app-header></app-header> -->
+    <mat-toolbar color="primary" class="toolbar">
+      <button mat-icon-button (click)="drawer.toggle()" class="hide-desktop">
+        <mat-icon>menu</mat-icon>
+      </button>
 
-    <!-- Page Content -->
-    <main class="p-4">
+      <span class="app-name">Welcome to dashboard</span>
+
+      <span class="spacer"></span>
+      <app-header></app-header>
+    </mat-toolbar>
+
+    <!-- Main Page Content -->
+    <div class="main-content">
       <router-outlet></router-outlet>
-    </main>
-  </div>
-</div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
