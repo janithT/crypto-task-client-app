@@ -2,6 +2,8 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.11.
 
+[![taskapp.jpg](https://i.postimg.cc/k4f2G5c6/taskapp.jpg)](https://postimg.cc/LYg902G2)
+
 ## 📝 Development server
 
 - If you dont have Angular or NodeJs setup please install them first.
