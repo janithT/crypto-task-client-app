@@ -1,15 +1,41 @@
-.dashboard-container {
+.sidenav-container {
   height: 100vh;
+}
+
+.sidenav {
+  width: 240px;
+}
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.app-name {
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }
 
 .main-content {
-  margin-left: 250px;
-}
-
-.dashboard-container {
-  height: 100vh;
-}
-
-.dashboard-content {
   padding: 16px;
+}
+
+.hide-desktop {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hide-desktop {
+    display: inline-flex;
+  }
+
+  .sidenav {
+    width: 200px;
+  }
 }
